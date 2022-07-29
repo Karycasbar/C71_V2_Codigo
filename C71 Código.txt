@@ -1,0 +1,53 @@
+<TouchableOpacity
+              style={[styles.button, { marginTop: 25 }]}
+              onPress={this.handleTransaction} >
+              <Text style={styles.buttonText}>Entregar</Text>
+            </TouchableOpacity>
+---------------------------------------------------------------------
+button: {
+    width: "43%",
+    height: 55,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F48D20",
+    borderRadius: 15
+  },
+  buttonText: {
+    fontSize: 24,
+    color: "#FFFFFF",
+    fontFamily: "Rajdhani_600SemiBold"
+  }
+-----------------------------------------------------------------
+import firebase from "firebase";
+
+const firebaseConfig = {
+    //credenciales de firebase
+};
+
+if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig);
+}
+
+export default firebase.firestore();
+------------------------------------------------------------------
+handleTransaction = () =>{
+    var {bookId} =this.state;
+    db.collection("books")
+    .doc(bookId)
+    .get()
+    .then(doc => {
+    var book = doc.data();
+    if(book.is_book_available){
+      this.initiateBookIssue();
+    }else{
+      this.initiateBookReturn();
+    }
+      });
+  }
+
+    initiateBookIssue = () =>{
+    console.log("Libro emitido al alumno");
+  };
+initiateBookReturn = () => {
+  console.log("Libro regresado a la biblioteca!");
+};
